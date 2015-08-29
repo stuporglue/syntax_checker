@@ -8,6 +8,7 @@
 #    * rb
 #    * sh
 #    * xml
+#    * csvlint -- https://github.com/Clever/csvlint
 #
 # It also supports checking that image files (gif,jpg,png,svg) are valid through imagemagick
 #
@@ -64,9 +65,22 @@ case "$EXTENSION" in
             CHECK_RES="csslint not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(csslint --quiet --format=compact $FILEPATH 2>&1 | grep -v Warning)
+            CHECK_RES=$(csslint --quiet --format=compact "$FILEPATH" 2>&1 | grep -v Warning)
             if [ "$CHECK_RES" != "" ] ; then
                 RET_VAL=1
+            fi
+        fi;;
+    csv)
+        which csvlint 2>&1 >/dev/null
+        if [ "$?" -ne "0" ];then
+            CHECK_RES="csvlint not found in path"
+            RET_VAL=3
+        else
+            CHECK_RES=$(csvlint "$FILEPATH" 2>&1)
+            if [ "$?" -eq "0" ]; then
+                CHECK_RES=""
+            else
+                RET_VAL=3
             fi
         fi;;
     DIRECTORY)
@@ -80,7 +94,7 @@ case "$EXTENSION" in
             CHECK_RES="identify (imagemagick) not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(identify $FILEPATH 2>&1)
+            CHECK_RES=$(identify "$FILEPATH" 2>&1)
             if [ "$?" -ne "0" ]; then 
                 RET_VAL=1
             else
@@ -102,7 +116,7 @@ case "$EXTENSION" in
                 CONF=""
             fi
 
-            CHECK_RES=$(tidy -e -q $CONF $FILEPATH 2>&1)
+            CHECK_RES=$(tidy -e -q $CONF "$FILEPATH" 2>&1)
             exitval=$?
             if [ "$exitval" -ne "0" ]; then
                 RET_VAL=1
@@ -136,7 +150,7 @@ case "$EXTENSION" in
                 REPORTER=""
             fi
 
-            CHECK_RES=$($HINTBIN $HINTFILE $REPORTER $FILEPATH 2>&1)
+            CHECK_RES=$($HINTBIN $HINTFILE $REPORTER "$FILEPATH" 2>&1)
             if [ "$CHECK_RES" != "" ]; then
                 RET_VAL=1
             fi
@@ -147,7 +161,7 @@ case "$EXTENSION" in
             CHECK_RES="php program not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(php -l $FILEPATH 2>&1 | grep -v 'No syntax errors detected')
+            CHECK_RES=$(php -l "$FILEPATH" 2>&1 | grep -v 'No syntax errors detected')
             if [ "$CHECK_RES" != "" ] ; then
                 RET_VAL=1
             fi
@@ -156,9 +170,6 @@ case "$EXTENSION" in
 
         which pylint >&1 >/dev/null
         if [ "$?" -eq "0" ]; then
-
-
-
             if [ -f ~/.pylintrc ]; then
                 RCFILE="--rcfile "~/.pylintrc
             elif [ -f ~/.syntax_checker/pylintrc ]; then 
@@ -169,10 +180,10 @@ case "$EXTENSION" in
                 RCFILE=""
             fi
 
-            CHECK_RES=$(pylint -r n $RCFILE $FILEPATH)
+            CHECK_RES=$(pylint -r n $RCFILE "$FILEPATH")
             exitval=$?
             if [ "$exitval" -ne "0" ]; then
-                CHECK_RES=$(pylint -r n $RCFILE $FILEPATH | grep [EWC])
+                CHECK_RES=$(pylint -r n $RCFILE "$FILEPATH" | grep [EWC])
                 RET_VAL=1
             else
                 CHECK_RES=""
@@ -183,13 +194,13 @@ case "$EXTENSION" in
                 CHECK_RES="python program not found in path"
                 RET_VAL=3
             else
-                if [ -f $(basename $FILEPATH).pyc ]; then
+                if [ -f $(basename "$FILEPATH").pyc ]; then
                     REMOVE_PYC=0;
                 else
                     REMOVE_PYC=1;
                 fi
 
-                CHECK_RES=$(python -m py_compile $FILEPATH 2>&1)
+                CHECK_RES=$(python -m py_compile "$FILEPATH" 2>&1)
                 exitval=$?
                 if [ "$exitval" -ne "0" ]; then
                     RET_VAL=1
@@ -198,7 +209,7 @@ case "$EXTENSION" in
                 fi
 
                 if [ $REMOVE_PYC -eq 1 ]; then
-                    RMME=$(basename $FILEPATH).pyc
+                    RMME=$(basename "$FILEPATH").pyc
                     if [ -f $RMME ]; then
                         rm $RMME
                     fi
@@ -212,7 +223,7 @@ case "$EXTENSION" in
             CHECK_RES="ruby not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(ruby -c $FILEPATH 2>&1)
+            CHECK_RES=$(ruby -c "$FILEPATH" 2>&1)
             exitval=$?
             if [ "$exitval" -ne "0" ]; then
                 RET_VAL=1
@@ -226,7 +237,7 @@ case "$EXTENSION" in
             CHECK_RES="bash not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(bash -n $FILEPATH 2>&1)
+            CHECK_RES=$(bash -n "$FILEPATH" 2>&1)
             exitval=$?
             if [ "$exitval" -ne "0" ]; then
                 RET_VAL=1
@@ -239,9 +250,9 @@ case "$EXTENSION" in
             CHECK_RES="xmllint not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(xmllint $FILEPATH >/dev/null 2>&1)
+            CHECK_RES=$(xmllint "$FILEPATH" >/dev/null 2>&1)
             if [ "$?" -ne "0" ]; then
-                CHECK_RES=$(xmllint $FILEPATH 2>&1 | grep -v compiled)
+                CHECK_RES=$(xmllint "$FILEPATH" 2>&1 | grep -v compiled)
                 RET_VAL=1
             fi
         fi;;
@@ -253,15 +264,28 @@ case "$EXTENSION" in
             CHECK_RES="pgsanity not found in path"
             RET_VAL=3
         else
-            CHECK_RES=$(pgsanity $FILEPATH)
+            CHECK_RES=$(pgsanity "$FILEPATH")
             if [ "$?" -ne "0" ]; then
                 RET_VAL=1
             fi
         fi;;
+    tsv)
+        which csvlint 2>&1 >/dev/null
+        if [ "$?" -ne "0" ];then
+            CHECK_RES="csvlint not found in path"
+            RET_VAL=3
+        else
+            CHECK_RES=$(csvlint --delimiter='\t' "$FILEPATH" 2>&1)
+            if [ "$?" -eq "0" ]; then
+                CHECK_RES=""
+            else
+                RET_VAL=3
+            fi
+        fi;;
     txt)
-        file --mime-type $FILEPATH | grep 'text'
+        file --mime-type "$FILEPATH" | grep 'text'
         if [ "$?" -ne "0" ]; then
-            CHECK_RES=$(file --mime-type $FILEPATH | grep -v 'text')
+            CHECK_RES=$(file --mime-type "$FILEPATH" | grep -v 'text')
             RET_VAL=1
         fi;;
     *)
