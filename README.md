@@ -38,19 +38,20 @@ ImageMagick recommends using [MacPorts](http://www.macports.org/) or [Homebrew](
 
 ### HTML 
 
- # Download [Cmake](http://www.cmake.org/download/)
- # Clone tidy and build it
+1. You will need the [Developer Tools](https://developer.apple.com/xcode/) installed
+2. Download [Cmake](http://www.cmake.org/download/) and install CMake.app in your Applications directory
+3. Clone tidy and build it
 
-    git clone https://github.com/htacg/tidy-html5.git
-    cd tidy-html5/build/cmake
-    cmake ../..
-    make
-    sudo make install
+     git clone https://github.com/htacg/tidy-html5.git
+     cd tidy-html5/build/cmake
+     /Applications/CMake.app/Contents/bin/cmake ../..
+     make
+     sudo make install
 
 ### JavaScript / JSON
 
- # Install [NPM](https://www.npmjs.com/)
- # Install jshint
+1. Install [NPM](https://www.npmjs.com/)
+2. Install jshint
     sudo npm install -g jshint
 
 ### PHP
@@ -71,7 +72,7 @@ ImageMagick recommends using [MacPorts](http://www.macports.org/) or [Homebrew](
 
 ### XML
 
-    xmllint comes installed on OSX? 
+    xmllint comes installed on OSX -- probably came with the developer tools
 
 ### PostgreSQL SQL Files
 
