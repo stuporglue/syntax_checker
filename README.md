@@ -13,6 +13,7 @@ The following formats are currently supported, and require the following program
 to be installed to work.
 
  * css -- csslint -- https://github.com/CSSLint/csslint
+ * csv/tsv -- csvlint -- https://github.com/Clever/csvlint
  * html -- tidy
  * js/json  -- hint
  * php -- php for command line
@@ -31,6 +32,11 @@ Installing for OSX
  # Install csslint
 
     sudo npm install -g csslint
+
+### CSV/TSV
+
+ # Install go
+ # Install [csvlint](https://github.com/Clever/csvlint)
 
 ### Images (gif,jpg,p ng,svg)
 
