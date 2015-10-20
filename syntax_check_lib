@@ -155,6 +155,21 @@ case "$EXTENSION" in
                 RET_VAL=1
             fi
         fi;;
+    pem)
+        OPENSSLBIN=$(which openssl)
+        if [ "$OPENSSLBIN" == "" ];then
+            CHECK_RES="openssl not found in path"
+            RET_VAL=3
+        else
+            CHECK_RES=$(openssl verify "$FILEPATH" 2>&1 | grep 'OK')
+            if [ "$CHECK_RES" != "OK" ]; then
+                CHECK_RES=$(openssl verify "$FILEPATH" 2>&1)
+                RET_VAL=1
+            else
+                CHECK_RES=""
+            fi
+        fi
+        ;;
     php)
         which php 2>&1 >/dev/null
         if [ "$?" -ne "0" ]; then
@@ -167,7 +182,6 @@ case "$EXTENSION" in
             fi
         fi;; 
     py)
-
         which pylint >&1 >/dev/null
         if [ "$?" -eq "0" ]; then
             if [ -f ~/.pylintrc ]; then
@@ -243,19 +257,6 @@ case "$EXTENSION" in
                 RET_VAL=1
             fi
         fi;;
-    xml)
-        # http://xmlsoft.org/xmllint.html
-        which xmllint 2>&1 >/dev/null
-        if [ "$?" -ne "0" ]; then
-            CHECK_RES="xmllint not found in path"
-            RET_VAL=3
-        else
-            CHECK_RES=$(xmllint "$FILEPATH" >/dev/null 2>&1)
-            if [ "$?" -ne "0" ]; then
-                CHECK_RES=$(xmllint "$FILEPATH" 2>&1 | grep -v compiled)
-                RET_VAL=1
-            fi
-        fi;;
     sql)
         # https://github.com/markdrago/pgsanity
         # Specific to postgres, but others may benefit too
@@ -287,6 +288,19 @@ case "$EXTENSION" in
         if [ "$?" -ne "0" ]; then
             CHECK_RES=$(file --mime-type "$FILEPATH" | grep -v 'text')
             RET_VAL=1
+        fi;;
+    xml)
+        # http://xmlsoft.org/xmllint.html
+        which xmllint 2>&1 >/dev/null
+        if [ "$?" -ne "0" ]; then
+            CHECK_RES="xmllint not found in path"
+            RET_VAL=3
+        else
+            CHECK_RES=$(xmllint "$FILEPATH" >/dev/null 2>&1)
+            if [ "$?" -ne "0" ]; then
+                CHECK_RES=$(xmllint "$FILEPATH" 2>&1 | grep -v compiled)
+                RET_VAL=1
+            fi
         fi;;
     *)
         CHECK_RES="$EXTENSION not found in syntax check list"
