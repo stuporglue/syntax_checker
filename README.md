@@ -39,6 +39,8 @@ Installing for OSX
 1. Install go
 2. Install [csvlint](https://github.com/Clever/csvlint)
 
+    go get github.com/Clever/csvlint/cmd/csvlint
+
 ### Images (gif,jpg,p ng,svg)
 
 ImageMagick recommends using [MacPorts](http://www.macports.org/) or [Homebrew](http://brew.sh/) to install
