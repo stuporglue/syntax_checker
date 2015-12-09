@@ -29,8 +29,8 @@ Installing for OSX
 ------------------
 ### CSS
 
- 1. Install [NPM](https://www.npmjs.com/)
- 2. Install csslint
+1. Install [NPM](https://www.npmjs.com/)
+2. Install csslint
 
     sudo npm install -g csslint
 
