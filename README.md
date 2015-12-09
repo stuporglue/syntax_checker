@@ -88,7 +88,7 @@ ImageMagick recommends using [MacPorts](http://www.macports.org/) or [Homebrew](
 
 ### Text Files (mime type checking only)
 
-    /file/ comes installed on OSX
+    file comes installed on OSX
 
 ### Openssl 
 
