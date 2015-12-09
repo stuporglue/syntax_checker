@@ -29,15 +29,15 @@ Installing for OSX
 ------------------
 ### CSS
 
- * Install [NPM](https://www.npmjs.com/)
- * Install csslint
+ 1. Install [NPM](https://www.npmjs.com/)
+ 2. Install csslint
 
     sudo npm install -g csslint
 
 ### CSV/TSV
 
-# Install go
-# Install [csvlint](https://github.com/Clever/csvlint)
+1. Install go
+2. Install [csvlint](https://github.com/Clever/csvlint)
 
 ### Images (gif,jpg,p ng,svg)
 
