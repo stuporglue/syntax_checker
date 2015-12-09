@@ -23,6 +23,7 @@ to be installed to work.
  * xml -- xmllint
  * sql (postgres specifically) -- pgsanity
  * git/jpg/png/svg -- identify (imagemagick)
+ * pem -- validate pem files (openssl)
 
 Installing for OSX
 ------------------
@@ -58,6 +59,7 @@ ImageMagick recommends using [MacPorts](http://www.macports.org/) or [Homebrew](
 
 1. Install [NPM](https://www.npmjs.com/)
 2. Install jshint
+
     sudo npm install -g jshint
 
 ### PHP
@@ -87,3 +89,7 @@ ImageMagick recommends using [MacPorts](http://www.macports.org/) or [Homebrew](
 ### Text Files (mime type checking only)
 
     /file/ comes installed on OSX
+
+### Openssl 
+
+    openssl comes installed on OSX
