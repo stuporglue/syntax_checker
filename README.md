@@ -36,8 +36,8 @@ Installing for OSX
 
 ### CSV/TSV
 
- # Install go
- # Install [csvlint](https://github.com/Clever/csvlint)
+# Install go
+# Install [csvlint](https://github.com/Clever/csvlint)
 
 ### Images (gif,jpg,p ng,svg)
 
