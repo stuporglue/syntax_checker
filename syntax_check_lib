@@ -283,7 +283,7 @@ case "$EXTENSION" in
                 RET_VAL=1
             fi
         fi;;
-    txt)
+    txt|md)
         file --mime-type "$FILEPATH" | grep 'text' 2>&1 > /dev/null
         if [ "$?" -ne "0" ]; then
             CHECK_RES=$(file --mime-type "$FILEPATH" | grep -v 'text')
