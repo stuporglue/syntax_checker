@@ -45,6 +45,13 @@ ALLOK='yes'
 FILESCHECKED=0
 
 for FULLFILE in $(git status | grep -E "modified|new" | grep -v '^#' | sed 's/.*: *//' | sed 's/(untracked content)//');do
+
+
+	if [ ! -f "$FULLFILE" ]; then
+		continue
+	fi
+
+
     FILESCHECKED=$((FILESCHECKED+1))
 
     if [ ${#FULLFILE} -gt $WIDTH ]; then
