@@ -14,16 +14,16 @@ to be installed to work.
 
  * css -- csslint -- https://github.com/CSSLint/csslint
  * csv/tsv -- csvlint -- https://github.com/Clever/csvlint
- * html -- tidy
- * js/json  -- hint
- * php -- php for command line
- * python -- pylint or python
- * ruby -- ruby 
- * bash -- bash
- * xml -- xmllint
- * sql (postgres specifically) -- pgsanity
- * git/jpg/png/svg -- identify (imagemagick)
- * pem -- validate pem files (openssl)
+ * html -- tidy -- https://github.com/htacg/tidy-html5
+ * js/json  -- jshint -- https://github.com/jshint/jshint
+ * php -- php for command line -- https://secure.php.net/
+ * python -- pylint or python -- https://www.pylint.org/
+ * ruby -- ruby -- https://www.ruby-lang.org/en/
+ * bash -- bash -- https://www.gnu.org/software/bash/
+ * xml -- xmllint -- http://xmlsoft.org/xmllint.html
+ * sql (postgres specifically) -- pgsanity -- https://github.com/markdrago/pgsanity
+ * git/jpg/png/svg -- identify (imagemagick) -- http://www.imagemagick.org/script/index.php
+ * pem -- validate pem files (openssl) -- https://www.openssl.org/
 
 Installing for OSX
 ------------------
